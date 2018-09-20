@@ -1,5 +1,5 @@
 /*
-react-datetime-header-footer v2.16.0
+react-datetime-header-footer v2.16.4
 
 MIT: https://github.com/YouCanBookMe/react-datetime/raw/master/LICENSE
 */
@@ -3609,7 +3609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                onMouseDown: this.onStartClicking("increase", type),
 	                onContextMenu: this.disableContextMenu
 	              },
-	              "▲"
+	              "△"
 	            ),
 	            React.createElement(
 	              "div",
@@ -3624,7 +3624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                onMouseDown: this.onStartClicking("decrease", type),
 	                onContextMenu: this.disableContextMenu
 	              },
-	              "▼"
+	              "▽"
 	            )
 	          ]
 	        );
@@ -3645,8 +3645,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	              onMouseDown: this.onStartClicking("toggleDayPart", "hours"),
 	              onContextMenu: this.disableContextMenu
 	            },
-	            "▲"
+	            "△"
 	          ),
+
 	          React.createElement(
 	            "div",
 	            { key: this.state.daypart, className: "rdtCount" },
@@ -3660,16 +3661,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	              onMouseDown: this.onStartClicking("toggleDayPart", "hours"),
 	              onContextMenu: this.disableContextMenu
 	            },
-	            "▼"
+	            "▽"
 	          )
 	        ]
 	      );
 	    },
 
 	    render: function() {
+	      console.log(this.state.counters);
 	      var me = this,
 	        counters = [];
-
+	      console.log(this.props.timeFormat);
 	      this.state.counters.forEach(function(c) {
 	        if (counters.length)
 	          counters.push(
@@ -3685,12 +3687,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        counters.push(me.renderCounter(c));
 	      });
 
+	      if (counters.length === 3) {
+	        counters.push(
+	          React.createElement(
+	            "div",
+	            {
+	              key: "sep" + counters.length,
+	              className: "rdtCounterSeparator"
+	            },
+	            ":"
+	          )
+	        );
+	      }
 	      if (this.state.daypart !== false) {
 	        counters.push(me.renderDayPart());
 	      }
-
 	      if (
-	        this.state.counters.length === 3 &&
+	        this.state.counters.length === 2 &&
 	        this.props.timeFormat.indexOf("S") !== -1
 	      ) {
 	        counters.push(
@@ -3726,7 +3739,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	              {},
 	              React.createElement(
 	                "td",
-	                {},
+	                {
+	                  colSpan: 2
+	                },
 	                React.createElement(
 	                  "div",
 	                  { className: "rdtCounters" },

@@ -75,7 +75,7 @@ var DateTimePickerTime = onClickOutside(
                 onMouseDown: this.onStartClicking("increase", type),
                 onContextMenu: this.disableContextMenu
               },
-              "▲"
+              "△"
             ),
             React.createElement(
               "div",
@@ -90,7 +90,7 @@ var DateTimePickerTime = onClickOutside(
                 onMouseDown: this.onStartClicking("decrease", type),
                 onContextMenu: this.disableContextMenu
               },
-              "▼"
+              "▽"
             )
           ]
         );
@@ -111,8 +111,9 @@ var DateTimePickerTime = onClickOutside(
               onMouseDown: this.onStartClicking("toggleDayPart", "hours"),
               onContextMenu: this.disableContextMenu
             },
-            "▲"
+            "△"
           ),
+
           React.createElement(
             "div",
             { key: this.state.daypart, className: "rdtCount" },
@@ -126,16 +127,17 @@ var DateTimePickerTime = onClickOutside(
               onMouseDown: this.onStartClicking("toggleDayPart", "hours"),
               onContextMenu: this.disableContextMenu
             },
-            "▼"
+            "▽"
           )
         ]
       );
     },
 
     render: function() {
+      console.log(this.state.counters);
       var me = this,
         counters = [];
-
+      console.log(this.props.timeFormat);
       this.state.counters.forEach(function(c) {
         if (counters.length)
           counters.push(
@@ -151,12 +153,23 @@ var DateTimePickerTime = onClickOutside(
         counters.push(me.renderCounter(c));
       });
 
+      if (counters.length === 3) {
+        counters.push(
+          React.createElement(
+            "div",
+            {
+              key: "sep" + counters.length,
+              className: "rdtCounterSeparator"
+            },
+            ":"
+          )
+        );
+      }
       if (this.state.daypart !== false) {
         counters.push(me.renderDayPart());
       }
-
       if (
-        this.state.counters.length === 3 &&
+        this.state.counters.length === 2 &&
         this.props.timeFormat.indexOf("S") !== -1
       ) {
         counters.push(
@@ -192,7 +205,9 @@ var DateTimePickerTime = onClickOutside(
               {},
               React.createElement(
                 "td",
-                {},
+                {
+                  colSpan: 2
+                },
                 React.createElement(
                   "div",
                   { className: "rdtCounters" },
