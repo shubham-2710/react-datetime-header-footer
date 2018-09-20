@@ -11,13 +11,13 @@ This project started as a fork of https://github.com/quri/react-bootstrap-dateti
 Install using npm:
 
 ```sh
-npm install --save react-datetime
+npm install --save npm i react-datetime-header-footer
 ```
 
 Install using yarn:
 
 ```sh
-yarn add react-datetime
+yarn add npm i react-datetime-header-footer
 ```
 
 ## Usage
